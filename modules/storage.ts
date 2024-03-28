@@ -1,19 +1,19 @@
-import {AsyncStorage} from '@onebasket/shared-ui-react-native/src/context';
-import {TICKETS_STORAGE_KEY} from '@onebasket/ticketing-ui-react-native';
-import Storage from '@react-native-async-storage/async-storage';
+import {Storage} from '@onebasket/shared-core-react';
 
-export const oneBasketStorage: AsyncStorage = {
-  getItem: async (key: string) => {
-    return Storage.getItem(key);
+import {MMKV} from 'react-native-mmkv';
+
+const mmkv = new MMKV();
+
+export const oneBasketStorage: Storage = {
+  getItem: (key: string) => {
+    return mmkv.getString(key) ?? null;
   },
-  removeItem: async (key: string) => {
-    return Storage.removeItem(key);
+  setItem: (key: string, value: string) => {
+    mmkv.set(key, value);
   },
-  setItem: async (key: string, value: string) => {
-    return Storage.setItem(key, value);
+  removeItem: (key: string) => {
+    mmkv.delete(key);
   },
 };
 
-export const clearOneBasketStorage = async () => {
-  return Storage.multiRemove([TICKETS_STORAGE_KEY]);
-};
+export default mmkv;

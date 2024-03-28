@@ -1,10 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {
-  OneBasketReactNativeProvider,
-  initTranslations,
-  locales,
-} from '@onebasket/shared-ui-react-native';
+import {OneBasketReactNativeProvider} from '@onebasket/shared-ui-react-native';
 import {TicketingStack} from '@onebasket/ticketing-ui-react-native';
 import {oneBasketStorage} from './storage';
 export type OneBasketStackParamList = {
@@ -14,34 +10,12 @@ export type OneBasketStackParamList = {
 const Stack = createNativeStackNavigator<OneBasketStackParamList>();
 
 const OneBasketStack = () => {
-  // TODO: linkedAccountId only currently test abel on DEV
   const authConfig = {
-    accessToken: 'fusionAuthToken?.access_token',
-    linkedAccountId: 'fusionUserProfile?.ticketsDotComAccountI',
+    accessToken: 'linkedAccountId',
+    linkedAccountId: 'linkedAccountId',
     mock: true,
-    xApiKey: 'Config.ONEBASKET_API_KEY',
+    xApiKey: 'xApiKey',
   };
-
-  // const oneBasketConfig = {
-  //   ...config,
-  //   MenuScreen: {
-  //     OnFamilyLinkPressed: navigateToFriendsAndFamily,
-  //   },
-  //   TicketingList: {
-  //     LinkAccountsLink: navigateToManageProfile,
-  //     UserLogInLink: mutateLogin,
-  //   },
-  //   TicketsTermsAndConditionsScreen: {
-  //     GetTermsAndConditionsToRender: termsAndConditionsRender,
-  //   },
-  // };
-
-  // const analyticsConfig = {
-  //   eventNames: OBEventNames,
-  //   logEvent: addOneBasketAnalyticsEvent,
-  //   paramNames: OBParamNames,
-  // };
-  initTranslations(locales);
 
   return (
     <OneBasketReactNativeProvider auth={authConfig} storage={oneBasketStorage}>
